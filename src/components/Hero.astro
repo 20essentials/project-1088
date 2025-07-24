@@ -1,0 +1,187 @@
+---
+import { baseUrl } from '@/utils/functions';
+const logo = baseUrl('/assets/css-logo.svg');
+---
+
+<section>
+  <h2 class='am-h2'>
+    Astro lets you build lightning-fast websites by delivering zero JavaScript by
+    default, embracing modern web standards, and giving you the freedom to write
+    components in your favorite frameworks — all while optimizing performance like
+    a static site generator on steroids
+  </h2>
+</section>
+
+<script>
+  import { $, getRandomHexColor } from '@/utils/functions';
+  import gsap from 'gsap';
+  import SplitText from 'gsap/SplitText';
+  gsap.registerPlugin(SplitText);
+  import { Pane } from 'tweakpane';
+  const $h2 = $('.am-h2');
+  const $splitedText = SplitText.create($h2, { type: 'words, chars' });
+  const thereisAnAnimation = () =>
+    gsap.isTweening($splitedText.chars) || gsap.isTweening($splitedText.chars);
+  const menu = new Pane();
+
+  menu
+    .addButton({
+      title: 'Blur Effect'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.words, {
+        yPercent: 100,
+        autoAlpha: 0,
+        filter: 'blur(20px)',
+        stagger: {
+          amount: 1
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'Random position Chars'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.chars, {
+        yPercent: 100,
+        autoAlpha: 0,
+        stagger: {
+          amount: 1,
+          from: 'random'
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'Random position and Color'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.chars, {
+        yPercent: 100,
+        autoAlpha: 0,
+        color: () => getRandomHexColor(),
+        stagger: {
+          amount: 1,
+          from: 'random'
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'Clip Path Rader'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.chars, {
+        clipPath: 'circle(100px at 0% 0%)',
+        stagger: {
+          amount: 1
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'Steps Scales'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.chars, {
+        scale: 0,
+        ease: 'back.inOut',
+        stagger: {
+          amount: 1
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'Scalalinado'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.chars, {
+        scale: 0,
+        transformOrigin: '-50% -50%',
+        ease: 'back.inOut',
+        stagger: {
+          amount: 1
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'SkewX'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.chars, {
+        skewX: 70,
+        opacity: 0,
+        transformOrigin: '-50% -50%',
+        ease: 'back.inOut',
+        stagger: {
+          amount: 1
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'SkewY'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.chars, {
+        skewY: 40,
+        opacity: 0,
+        transformOrigin: '-50% -50%',
+        ease: 'back.inOut',
+        stagger: {
+          amount: 1
+        }
+      });
+    });
+</script>
+
+<style>
+  section {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
+
+    h2 {
+      color: #e9e9e9;
+      width: 60%;
+      text-align: center;
+      font-size: 1.7vmax;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+</style>
