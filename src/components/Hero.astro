@@ -19,7 +19,7 @@ const logo = baseUrl('/assets/css-logo.svg');
   gsap.registerPlugin(SplitText);
   import { Pane } from 'tweakpane';
   const $h2 = $('.am-h2');
-  const $splitedText = SplitText.create($h2, { type: 'words, chars' });
+  const $splitedText = SplitText.create($h2, { type: 'words, chars, lines' });
   const thereisAnAnimation = () =>
     gsap.isTweening($splitedText.chars) || gsap.isTweening($splitedText.chars);
   const menu = new Pane();
@@ -161,6 +161,44 @@ const logo = baseUrl('/assets/css-logo.svg');
         skewY: 40,
         opacity: 0,
         transformOrigin: '-50% -50%',
+        ease: 'back.inOut',
+        stagger: {
+          amount: 1
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'mask words'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.words, {
+        yPercent: 100,
+        opacity: 0,
+        mask: "lines",
+        ease: 'back.inOut',
+        stagger: {
+          amount: 1
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'mask lines'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.lines, {
+        yPercent: 100,
+        opacity: 0,
+        mask: "lines",
         ease: 'back.inOut',
         stagger: {
           amount: 1
