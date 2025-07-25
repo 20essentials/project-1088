@@ -21,7 +21,9 @@ const logo = baseUrl('/assets/css-logo.svg');
   const $h2 = $('.am-h2');
   const $splitedText = SplitText.create($h2, { type: 'words, chars, lines' });
   const thereisAnAnimation = () =>
-    gsap.isTweening($splitedText.chars) || gsap.isTweening($splitedText.chars);
+    gsap.isTweening($splitedText.chars) ||
+    gsap.isTweening($splitedText.chars) ||
+    gsap.isTweening($splitedText.words);
   const menu = new Pane();
 
   menu
@@ -170,7 +172,7 @@ const logo = baseUrl('/assets/css-logo.svg');
 
   menu
     .addButton({
-      title: 'mask words'
+      title: 'Mask words'
     })
     .on('click', () => {
       if (thereisAnAnimation()) {
@@ -179,7 +181,7 @@ const logo = baseUrl('/assets/css-logo.svg');
       gsap.from($splitedText.words, {
         yPercent: 100,
         opacity: 0,
-        mask: "lines",
+        mask: 'lines',
         ease: 'back.inOut',
         stagger: {
           amount: 1
@@ -189,7 +191,7 @@ const logo = baseUrl('/assets/css-logo.svg');
 
   menu
     .addButton({
-      title: 'mask lines'
+      title: 'Mask lines'
     })
     .on('click', () => {
       if (thereisAnAnimation()) {
@@ -198,8 +200,82 @@ const logo = baseUrl('/assets/css-logo.svg');
       gsap.from($splitedText.lines, {
         yPercent: 100,
         opacity: 0,
-        mask: "lines",
+        mask: 'lines',
         ease: 'back.inOut',
+        stagger: {
+          amount: 1
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'Slow writting'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.chars, {
+        XPercent: 200,
+        opacity: 0,
+        ease: 'back.in',
+        stagger: 0.03
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'From Right'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.chars, {
+        XPercent: 200,
+        x: 200,
+        opacity: 0,
+        ease: 'power2',
+        stagger: {
+          amount: 3
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'Words Rotate'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.words, {
+        y: -300,
+        rotate: 'random(-120, 120)',
+        opacity: 0,
+        ease: 'back.inOut',
+        stagger: {
+          amount: 3
+        }
+      });
+    });
+
+  menu
+    .addButton({
+      title: 'Cut Lines'
+    })
+    .on('click', () => {
+      if (thereisAnAnimation()) {
+        return;
+      }
+      gsap.from($splitedText.lines, {
+        rotationX: -100,
+        y: 150,
+        transformOrigin: '50% 100%',
+        autoAlpha: 0,
+        ease: 'power3',
         stagger: {
           amount: 1
         }
@@ -220,6 +296,8 @@ const logo = baseUrl('/assets/css-logo.svg');
       text-align: center;
       font-size: 1.7vmax;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transform-style: preserve-3d;
+      perspective: 200px;
     }
   }
 </style>
